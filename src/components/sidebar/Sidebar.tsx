@@ -5,7 +5,6 @@ import classNames from "classnames";
 export default function Sidebar() {
   const CN = require("classnames");
   return (
-    // <div className={CN(styles.mainSidebar, styles.sidebar)}>
     <div className={styles.mainSidebar}>
       <div className={styles.sidebarPersonal}>
         <p className={styles.sidebarPersonalName}>Sergey.Ivanov</p>

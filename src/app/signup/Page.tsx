@@ -11,7 +11,12 @@ export default function Signup() {
           <form className={styles.modalFormLogin}>
             <a href="../">
               <div className={styles.modalLogo}>
-                <Image src="/img/logo_modal.png" alt="logo" />
+                <Image
+                  src="/img/logo_modal.png"
+                  alt="logo"
+                  width={140}
+                  height={21}
+                />
               </div>
             </a>
             <input

@@ -4,10 +4,25 @@ import classNames from "classnames";
 import Navigation from "@/components/navigation/Navigation";
 import Sidebar from "@/components/sidebar/Sidebar";
 import Playerbar from "@/components/playerbar/Playerbar";
-import Search from "@/components/centerblock/search/Search";
-import Playlist from "@/components/centerblock/playlist/Playlist";
+import { Search } from "@/components/centerblock/search/Search";
+import { Playlist } from "@/components/centerblock/playlist/Playlist";
+import { getTracksAll } from "./api/tracks";
+import { TrackType } from "@/Types/track";
+import { Filter } from "@/components/filter/Filter";
 
-export default function Home() {
+export default async function Home() {
+  let tracks: TrackType[] = [];
+  let errorMessage = "";
+
+  try {
+    tracks = await getTracksAll();
+  } catch (error: unknown) {
+    errorMessage =
+      error instanceof Error
+        ? "Возникли проблемы при загрузке треков" + error.message
+        : "Неизвестная ошибка";
+  }
+
   const CN = require("classnames");
   return (
     <div className={styles.wrapper}>
@@ -15,8 +30,9 @@ export default function Home() {
         <main className={styles.main}>
           <Navigation />
           <div className={CN(styles.mainCenterblock, styles.centerblock)}>
-            <Search />
-            <Playlist />
+            <Search tracks={tracks} />
+            <Filter tracks={tracks} />
+            <Playlist tracks={tracks} />
           </div>
           <Sidebar />
         </main>

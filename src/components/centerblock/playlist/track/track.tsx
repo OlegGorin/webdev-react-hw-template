@@ -1,5 +1,5 @@
 import styles from "./Track.module.css";
-import classNames from "classnames";
+import CN from "classnames";
 import { TrackType } from "@/Types/track";
 
 type PlaylistProps = {
@@ -13,7 +13,6 @@ export function Track({ track }: PlaylistProps) {
   const seconds = duration_in_seconds % 60;
   const secondsString = seconds < 10 ? "0" + seconds.toString() : seconds.toString();
 
-  const CN = require("classnames");
   return (
     <div className={styles.playlistItem}>
     <div className={CN(styles.playlistTrack, styles.track)}>

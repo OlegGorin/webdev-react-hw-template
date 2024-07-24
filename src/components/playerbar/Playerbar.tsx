@@ -1,8 +1,7 @@
 import styles from "./Playerbar.module.css";
-import classNames from "classnames";
+import CN from "classnames";
 
 export default function Playerbar() {
-  const CN = require("classnames");
   return (
     <div className={styles.bar}>
       <div className={styles.barContent}>

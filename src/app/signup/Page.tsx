@@ -1,9 +1,8 @@
 import Image from "next/image";
 import styles from "./Signup.module.css";
-import classNames from "classnames";
+import CN from "classnames";
 
 export default function Signup() {
-  const CN = require("classnames");
   return (
     <div className={styles.wrapper}>
       <div className={styles.containerSignup}>

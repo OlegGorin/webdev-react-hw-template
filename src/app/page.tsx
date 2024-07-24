@@ -1,5 +1,5 @@
 import styles from "./page.module.css";
-import classNames from "classnames";
+import CN from "classnames";
 import Navigation from "@/components/navigation/Navigation";
 import Sidebar from "@/components/sidebar/Sidebar";
 import Playerbar from "@/components/playerbar/Playerbar";
@@ -22,14 +22,13 @@ export default async function Home() {
         : "Неизвестная ошибка";
   }
 
-  const CN = require("classnames");
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
         <main className={styles.main}>
           <Navigation />
           <div className={CN(styles.mainCenterblock, styles.centerblock)}>
-            <Search tracks={tracks} />
+            <Search />
             <Filter tracks={tracks} />
             <Playlist tracks={tracks} />
           </div>

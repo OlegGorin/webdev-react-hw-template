@@ -1,9 +1,8 @@
 "use client";
 
 import styles from "./FilterItems.module.css";
-import classNames from "classnames";
-import { TrackType } from "@/Types/track";
-import { FC, useState } from "react";
+import CN from "classnames";
+import { FC } from "react";
 
 type FilterItemProps = {
   title: string;
@@ -17,7 +16,6 @@ export const FilterItem: FC<FilterItemProps> = ({
   list,
   handleFilter,
 }) => {
-  const CN = require("classnames");
   return (
     <>
       <div className={styles.wrapper}>

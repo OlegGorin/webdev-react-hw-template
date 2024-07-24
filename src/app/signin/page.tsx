@@ -5,12 +5,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import styles from "./Signin.module.css";
-import classNames from "classnames";
+import CN from "classnames";
 import { loginUser } from "../api/page";
 
-// export default async function Signin() {
 export default function Signin() {  
-  const CN = require("classnames");
   const router = useRouter();
 
   const [formValues, setFormValues] = useState({
@@ -29,7 +27,6 @@ export default function Signin() {
     setPassError(false);
   };
 
-  // const onLogin = async (event: any) => {
   const onLogin = (event: any) => {    
     event.preventDefault();
 

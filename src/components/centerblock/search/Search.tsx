@@ -1,13 +1,7 @@
 import styles from "./Search.module.css";
-import classNames from "classnames";
-import { TrackType } from "@/Types/track";
-import { FC } from "react";
+import CN from "classnames";
 
-type SearchProps = {
-  tracks: TrackType[];
-};
-export const Search: FC<SearchProps> = ({ tracks }) => {
-  const CN = require("classnames");
+export const Search = () => {
   return (
     <>
       <div className={CN(styles.centerblockSearch, styles.search)}>

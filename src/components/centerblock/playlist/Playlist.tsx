@@ -1,5 +1,5 @@
 import styles from "./Playlist.module.css";
-import classNames from "classnames";
+import CN from "classnames";
 import { Track } from "./track/track";
 import { TrackType } from "@/Types/track";
 import { FC } from "react";
@@ -8,7 +8,6 @@ type PlaylistProps = {
   tracks: TrackType[];
 };
 export const Playlist: FC<PlaylistProps> = ({ tracks }) => {
-  const CN = require("classnames");
   return (
     <div className={CN(styles.centerblockContent, styles.playlistContent)}>
       <div className={CN(styles.contentTitle, styles.playlistTitle)}>

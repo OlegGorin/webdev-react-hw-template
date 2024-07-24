@@ -2,11 +2,10 @@
 
 import Image from "next/image";
 import styles from "./Navigation.module.css";
-import classNames from "classnames";
+import CN from "classnames";
 import { useState } from "react";
 
 export default function Navigation() {
-  const CN = require("classnames");
 
   const [menuIsOpen, setMenuIsOpen] = useState(false);
 

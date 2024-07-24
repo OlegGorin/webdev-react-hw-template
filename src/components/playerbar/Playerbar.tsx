@@ -1,4 +1,3 @@
-import Image from "next/image";
 import styles from "./Playerbar.module.css";
 import classNames from "classnames";
 

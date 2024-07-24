@@ -1,7 +1,5 @@
 "use server"
 
-// const pathLogin = "https://skypro-music-api.skyeng.tech/user/login/";
-// const pathReg = "https://skypro-music-api.skyeng.tech/user/signup/";
 const pathMusic = "https://webdev-music-003b5b991590.herokuapp.com/";
 const pathLogin = pathMusic + "user/login/";
 const pathTrackAll = pathMusic + "catalog/track/all/";

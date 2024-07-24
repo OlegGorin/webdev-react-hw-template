@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import styles from "./FilterItems.module.css";
 import classNames from "classnames";
 import { TrackType } from "@/Types/track";
@@ -24,8 +23,6 @@ export const FilterItem: FC<FilterItemProps> = ({
       <div className={styles.wrapper}>
         <div
           onClick={() => handleFilter(title)}
-          // className={CN(styles.filterButton, styles._btnText)}
-          // className={CN(styles.filterButton, `${styles._btnText} ${isActive ? styles.active : ""}`)}
           className={CN(styles.filterButton, `${!isActive ? styles._btnText : styles._btnTextActive}`)}
         >
           {title}

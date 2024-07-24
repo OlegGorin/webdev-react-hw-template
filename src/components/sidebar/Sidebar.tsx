@@ -1,9 +1,7 @@
 import Image from "next/image";
 import styles from "./Sidebar.module.css";
-import classNames from "classnames";
 
 export default function Sidebar() {
-  const CN = require("classnames");
   return (
     <div className={styles.mainSidebar}>
       <div className={styles.sidebarPersonal}>

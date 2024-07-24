@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import styles from "./Signin.module.css";
 import classNames from "classnames";
-import { loginUser } from "./api/page";
+import { loginUser } from "../api/page";
 
 // export default async function Signin() {
 export default function Signin() {  

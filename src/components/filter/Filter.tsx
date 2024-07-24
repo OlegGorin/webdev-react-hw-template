@@ -1,8 +1,6 @@
 "use client";
 
-import Image from "next/image";
 import styles from "./Filter.module.css";
-import classNames from "classnames";
 import { TrackType } from "@/Types/track";
 import { FC, useState } from "react";
 import { FilterItem } from "./filterItem/FilterItem";
@@ -41,7 +39,6 @@ export const Filter: FC<FilterProps> = ({ tracks }) => {
     },
   ];
 
-  const CN = require("classnames");
   return (
     <div className={styles.centerblockFilter}>
       <div className={styles.filterTitle}>Искать по:</div>

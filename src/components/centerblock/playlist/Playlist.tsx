@@ -1,4 +1,3 @@
-import Image from "next/image";
 import styles from "./Playlist.module.css";
 import classNames from "classnames";
 import { Track } from "./track/track";

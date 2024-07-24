@@ -1,4 +1,3 @@
-import Image from "next/image";
 import styles from "./Search.module.css";
 import classNames from "classnames";
 import { TrackType } from "@/Types/track";
@@ -23,16 +22,6 @@ export const Search: FC<SearchProps> = ({ tracks }) => {
         />
       </div>
       <h2 className={styles.centerblockH2}>Треки</h2>
-      {/* <div className={CN(styles.centerblockFilter, styles.filter)}>
-        <div className={styles.filterTitle}>Искать по:</div>
-        <div className={CN(styles.filterButton, styles._btnText)}>
-          исполнителю
-        </div>
-        <div className={CN(styles.filterButton, styles._btnText)}>
-          году выпуска
-        </div>
-        <div className={CN(styles.filterButton, styles._btnText)}>жанру</div>
-      </div> */}
     </>
   );
 };

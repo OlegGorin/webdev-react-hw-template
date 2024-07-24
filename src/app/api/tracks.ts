@@ -1,5 +1,3 @@
-// const pathTracks = "https://skypro-music-api.skyeng.tech/catalog/track/";
-
 const pathTracks =
   "https://webdev-music-003b5b991590.herokuapp.com/catalog/track/";
 

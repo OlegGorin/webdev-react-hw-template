@@ -1,4 +1,3 @@
-import Image from "next/image";
 import styles from "./Track.module.css";
 import classNames from "classnames";
 import { TrackType } from "@/Types/track";
@@ -10,7 +9,6 @@ export function Track({ track }: PlaylistProps) {
   const { name, author, album, duration_in_seconds } = track;
 
   const minutes = Math.floor(duration_in_seconds / 60);
-  // const minutesString = minutes < 10 ? "0" + minutes.toString() : minutes.toString();
   const minutesString = minutes.toString();
   const seconds = duration_in_seconds % 60;
   const secondsString = seconds < 10 ? "0" + seconds.toString() : seconds.toString();

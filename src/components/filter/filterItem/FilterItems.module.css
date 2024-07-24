@@ -24,7 +24,6 @@
 
 .itemList,
 .itemListActive {
-  /* font-family: StratosSkyeng; */
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -51,22 +50,15 @@
   padding: 6px 20px;
 }
 
-.filterButton:not(:last-child) {
+/* .filterButton:not(:last-child) {
   margin-right: 10px;
-}
-
-._btnText:active {
-  border-color: #ad61ff;
-  color: #ad61ff;
-  cursor: pointer;
-}
+} */
 
 ._btnTextActive {
   border-color: #ad61ff;
   color: #ad61ff;
   cursor: pointer;
 }
-
 
 ._btnText:hover {
   border-color: #d9b6ff;

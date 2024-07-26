@@ -1,0 +1,67 @@
+.container {
+  position: absolute;
+}
+
+.filterBox {
+  position: relative;
+  background: #313131;
+  margin-top: 15px;
+  width: 248px;
+  max-height: 305px;
+  border-radius: 12px;
+  padding: 34px;
+}
+
+.innerBox {
+  width: 180px;
+  max-height: 237px;
+  background: #313131;
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #ffffff #4b4949;
+  cursor: pointer;
+}
+
+.itemList,
+.itemListActive {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 48px;
+}
+
+.itemList:hover {
+  color: #ad61ff;
+  text-decoration: underline;
+}
+
+.itemListActive {
+  color: #ad61ff;
+  text-decoration: underline;
+}
+
+.filterButton {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  border: 1px solid #ffffff;
+  border-radius: 60px;
+  padding: 6px 20px;
+}
+
+/* .filterButton:not(:last-child) {
+  margin-right: 10px;
+} */
+
+._btnTextActive {
+  border-color: #ad61ff;
+  color: #ad61ff;
+  cursor: pointer;
+}
+
+._btnText:hover {
+  border-color: #d9b6ff;
+  color: #d9b6ff;
+  cursor: pointer;
+}

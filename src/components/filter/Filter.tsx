@@ -4,7 +4,7 @@ import styles from "./Filter.module.css";
 import { TrackType } from "@/Types/track";
 import { FC, useState } from "react";
 import { FilterItem } from "./filterItem/FilterItem";
-import { getUniqueValues } from "../utils/getUniqueValues";
+import { getUniqueValues } from "@/utils/getUniqueValues";
 
 type FilterProps = {
   tracks: TrackType[];

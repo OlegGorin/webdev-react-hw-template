@@ -22,7 +22,8 @@ export default function Playerbar({ track }: PlayerBarProps) {
   const [isLooping, setIsLooping] = useState(false);
 
   // Начальная громкость установлена на 50%
-  const [volume, setVolume] = useState(0.5);
+  const DEFAULT_VOLUME = 0.5;
+  const [volume, setVolume] = useState(DEFAULT_VOLUME);
 
   // Продолжительность трека в секундах
   const duration = audioRef.current?.duration || 0;

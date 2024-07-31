@@ -13,7 +13,10 @@ type PlayerBarProps = {
 export default function Playerbar({ track }: PlayerBarProps) {
   // Использование useRef для получения доступа к элементу <audio>
   const audioRef = useRef<HTMLAudioElement>(null);
-  const [currentTime, setCurrentTime] = useState(0);
+
+ // Начальное текущее время воспроизведения устанавливаем в 0
+  const DEFAULT_CURRENT_TIME = 0;
+  const [currentTime, setCurrentTime] = useState(DEFAULT_CURRENT_TIME);
 
   // Состояние для управления воспроизведением
   const [isPlaying, setIsPlaying] = useState(false);

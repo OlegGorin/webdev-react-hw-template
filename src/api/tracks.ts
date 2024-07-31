@@ -6,7 +6,7 @@ export const getTracksAll = async () => {
     method: "GET",
   });
   if (!response.ok) {
-    throw new Error("Ошибка загрузки трэков");
+    throw new Error("Ошибка загрузки треков");
   }
 
   const data = await response.json();

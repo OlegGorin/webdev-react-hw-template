@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -6,9 +6,9 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import styles from "./Signin.module.css";
 import CN from "classnames";
-import { loginUser } from "../api/page";
+import { loginUser } from "../../api/page";
 
-export default function Signin() {  
+export default function Signin() {
   const router = useRouter();
 
   const [formValues, setFormValues] = useState({
@@ -27,7 +27,7 @@ export default function Signin() {
     setPassError(false);
   };
 
-  const onLogin = (event: any) => {    
+  const onLogin = (event: any) => {
     event.preventDefault();
 
     if (!formValues.login || formValues.login.trim() === "") {
@@ -43,14 +43,11 @@ export default function Signin() {
     }
 
     try {
-      const response = loginUser(
-        formValues.login,
-        formValues.password
-    );
+      const response = loginUser(formValues.login, formValues.password);
 
       setError("");
       // setUser(response.user);
-      router.push('/home');
+      router.push("/home");
     } catch (error) {
       console.error(error);
       if (error === "Failed to fetch") {

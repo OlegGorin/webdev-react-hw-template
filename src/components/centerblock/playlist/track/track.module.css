@@ -5,31 +5,15 @@
 }
 
 .playlistTrack {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
   flex-direction: row;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
   justify-content: space-between;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
 }
 
 .trackTitle {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
   flex-direction: row;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   width: 447px;
 }
@@ -39,14 +23,8 @@
   height: 51px;
   padding: 16px;
   background: #313131;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
   justify-content: center;
   margin-right: 17px;
 }
@@ -76,11 +54,7 @@
 
 .trackAuthor {
   width: 321px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: start;
-  -ms-flex-pack: start;
   justify-content: flex-start;
 }
 
@@ -121,4 +95,25 @@
   text-align: right;
   color: #696969;
   margin-right: 8px;
+}
+
+.blinkedMark {
+  position: relative;
+  left: -50px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #B672FF;
+}
+
+.active{
+  animation-name: blinker;
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(1.0,0,0,1.0);
+  animation-duration: 1s; 
+}
+
+@keyframes blinker {
+  from { opacity: 1.0; }
+  to { opacity: 0.0; } 
 }

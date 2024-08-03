@@ -6,8 +6,6 @@
   
   .mainCenterblock {
     width: auto;
-    -webkit-box-flex: 3;
-    -ms-flex-positive: 3;
     flex-grow: 3;
     padding: 20px 40px 20px 111px;
   }
@@ -29,15 +27,8 @@
     width: 20px;
     height: 36px;
     padding: 13px 0;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
     flex-direction: column;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
     justify-content: space-between;
     cursor: pointer;
   }

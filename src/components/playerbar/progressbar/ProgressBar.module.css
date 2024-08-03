@@ -6,7 +6,6 @@
   margin: 0;
   width: 100%;
   height: var(--progress-height);
-  -webkit-appearance: none;
   appearance: none;
   cursor: pointer;
   background: transparent;
@@ -30,7 +29,6 @@
   --thumb-height: 1px;
   --thumb-width: 1px;
   position: relative;
-  -webkit-appearance: none;
   appearance: none;
   background: var(--progress-color);
   width: var(--thumb-width, var(--thumb-height));

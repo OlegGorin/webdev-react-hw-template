@@ -1,28 +1,27 @@
+"use client";
+
 import styles from "./Playerbar.module.css";
 import CN from "classnames";
-import { TrackType } from "@/Types/track";
 import { useEffect, useRef, useState } from "react";
 import { ProgressBar } from "./progressbar/ProgressBar";
 import { Volume } from "./volume/volume";
 import { FormatTime } from "@/utils/FormatTime";
+import { useAppDispatch, useAppSelector } from "@/store/store";
+import {
+  setIsPlaying,
+  setIsShuffle,
+  setIsLooping,
+  setNextTrack,
+  setPrevTrack,
+} from "@/store/features/trackSlice";
 
-type PlayerBarProps = {
-  track: TrackType;
-};
-
-export default function Playerbar({ track }: PlayerBarProps) {
+export default function Playerbar() {
   // Использование useRef для получения доступа к элементу <audio>
   const audioRef = useRef<HTMLAudioElement>(null);
 
- // Начальное текущее время воспроизведения устанавливаем в 0
+  // Начальное текущее время воспроизведения устанавливаем в 0
   const DEFAULT_CURRENT_TIME = 0;
   const [currentTime, setCurrentTime] = useState(DEFAULT_CURRENT_TIME);
-
-  // Состояние для управления воспроизведением
-  const [isPlaying, setIsPlaying] = useState(false);
-
-  // Установка воспроизведения в цикле
-  const [isLooping, setIsLooping] = useState(false);
 
   // Начальная громкость установлена на 50%
   const DEFAULT_VOLUME = 0.5;
@@ -30,6 +29,13 @@ export default function Playerbar({ track }: PlayerBarProps) {
 
   // Продолжительность трека в секундах
   const duration = audioRef.current?.duration || 0;
+  const {
+    currentTrack: track,
+    isPlaying,
+    isShuffle,
+    isLooping,
+  } = useAppSelector((state) => state.playlist);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (audioRef.current) {
@@ -40,19 +46,39 @@ export default function Playerbar({ track }: PlayerBarProps) {
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.play();
-      setIsPlaying(true);
+      dispatch(setIsPlaying(true));
     }
-  }, [track]);
+  }, [track, dispatch]);
 
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (audio) {
+      audio.addEventListener("ended", () => {
+        dispatch(setNextTrack());
+      });
+    }
+    return () => {
+      if (audio) {
+        audio.removeEventListener("ended", () => {
+          dispatch(setNextTrack());
+        });
+      }
+    };
+  }, [track, dispatch]);
+
+  if (!track) {
+    return <></>;
+  }
   // Функция для воспроизведения и паузы
   const togglePlay = () => {
     if (audioRef.current) {
       if (isPlaying) {
         audioRef.current.pause();
+        dispatch(setIsPlaying(false));
       } else {
         audioRef.current.play();
+        dispatch(setIsPlaying(true));
       }
-      setIsPlaying((prevState) => !prevState);
     }
   };
 
@@ -60,11 +86,12 @@ export default function Playerbar({ track }: PlayerBarProps) {
     if (audioRef.current) {
       if (isLooping) {
         audioRef.current.loop = false;
+        dispatch(setIsLooping(false));
       } else {
         audioRef.current.loop = true;
+        dispatch(setIsLooping(true));
       }
     }
-    setIsLooping((repeat) => !repeat);
   };
 
   const handleProgressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,15 +101,15 @@ export default function Playerbar({ track }: PlayerBarProps) {
   };
 
   const handlePreviosPlay = () => {
-    alert("Еще не реализовано");
+    dispatch(setPrevTrack());
   };
 
   const handleNextPlay = () => {
-    alert("Еще не реализовано");
+    dispatch(setNextTrack());
   };
 
   const handleShufflePlay = () => {
-    alert("Еще не реализовано");
+    dispatch(setIsShuffle(!isShuffle ? true : false));
   };
 
   return (
@@ -146,11 +173,9 @@ export default function Playerbar({ track }: PlayerBarProps) {
                 onClick={toggleLoop}
               >
                 <svg
-                  className={`${
-                    !isLooping
-                      ? styles.playerBtnRepeatSvg
-                      : styles.playerBtnRepeatAct
-                  }`}
+                  className={CN(styles.playerBtnRepeatSvg, {
+                    [styles.repeatActive]: isLooping,
+                  })}
                 >
                   <use
                     xlinkHref="/img/icon/sprite.svg#icon-repeat"
@@ -159,10 +184,14 @@ export default function Playerbar({ track }: PlayerBarProps) {
                   ></use>
                 </svg>
               </div>
-              <div className={CN(styles.playerBtnShuffle, styles._btnIcon)}>
+              <div
+                className={CN(styles.playerBtnShuffle, styles._btnIcon)}
+                onClick={handleShufflePlay}
+              >
                 <svg
-                  className={styles.playerBtnShuffleSvg}
-                  onClick={handleShufflePlay}
+                  className={CN(styles.playerBtnShuffleSvg, {
+                    [styles.shuffleActive]: isShuffle,
+                  })}
                 >
                   <use
                     xlinkHref="/img/icon/sprite.svg#icon-shuffle"

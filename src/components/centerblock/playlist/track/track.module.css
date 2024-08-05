@@ -97,23 +97,59 @@
   margin-right: 8px;
 }
 
-.blinkedMark {
+.boxMark {
   position: relative;
   left: -50px;
   width: 16px;
   height: 16px;
-  border-radius: 50%;
-  background-color: #B672FF;
 }
 
-.active{
+.blinkedMark {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #b672ff;
+  align-items: center;
+  justify-content: center;
+}
+
+.active {
   animation-name: blinker;
   animation-iteration-count: infinite;
-  animation-timing-function: cubic-bezier(1.0,0,0,1.0);
-  animation-duration: 1s; 
+  animation-timing-function: cubic-bezier(1, 0, 0, 1);
+  animation-duration: 1s;
 }
 
 @keyframes blinker {
-  from { opacity: 1.0; }
-  to { opacity: 0.0; } 
+  0% {
+    opacity: 1;
+    width: 16px;
+    height: 16px;
+  }
+  25% {opacity: 0.5;
+    left: 4px;
+    top: 4px;
+    width: 8px;
+    height: 8px;
+  }
+  50% {opacity: 0;
+    left: 8px;
+    top: 8px;
+    width: 0;
+    height: 0;
+  }
+  75% {opacity: 0.5;
+    left: 4px;
+    top: 4px;
+    width: 8px;
+    height: 8px;
+  }
+  100% {
+    left: 0;
+    top: 0;
+    opacity: 1;
+    width: 16px;
+    height: 16px;
+  }
 }

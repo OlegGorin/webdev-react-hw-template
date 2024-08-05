@@ -15,7 +15,7 @@ type PlaylistProps = {
 export function Track({ track, tracks }: PlaylistProps) {
   const { name, author, album, duration_in_seconds, track_file } = track;
   const dispatch = useAppDispatch();
-  const { currentTrack, isPlaying } = useAppSelector((state) => state.playlist);
+  const { currentTrack, isPlaying, isEndPlaying } = useAppSelector((state) => state.playlist);
 
   const handleSelectTrack = () => {
     dispatch(setCurrentTrack({ currentTrack: track, playlist: tracks }));
@@ -32,11 +32,15 @@ export function Track({ track, tracks }: PlaylistProps) {
               <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
             </svg>
           </div>
-          {conditionCurrentTrack && (
-            <div
-              className={CN(styles.blinkedMark, { [styles.active]: isPlaying })}
-            ></div>
-          )}
+          <div className={styles.boxMark}>
+            {conditionCurrentTrack && (
+              <div
+                className={CN(styles.blinkedMark, {
+                  [styles.active]: (isPlaying && !isEndPlaying),
+                })}
+              ></div>
+            )}
+          </div>
           <div className={styles.trackTitleText}>
             <span className={styles.trackTitleLink}>
               {name} <span className={styles.trackTitleSpan}></span>

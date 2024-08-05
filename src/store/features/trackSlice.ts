@@ -8,6 +8,7 @@ type PlaylistStateType = {
   isPlaying: boolean;
   isShuffle: boolean;
   isLooping: boolean;
+  isEndPlaying: boolean;
 };
 
 const initialState: PlaylistStateType = {
@@ -17,6 +18,7 @@ const initialState: PlaylistStateType = {
   isPlaying: false,
   isShuffle: false,
   isLooping: false,
+  isEndPlaying: false,
 };
 
 const playlistSlice = createSlice({
@@ -32,18 +34,22 @@ const playlistSlice = createSlice({
       state.playlist = action.payload.playlist;
     },
     setNextTrack: (state) => {
-      const playlist = state.isShuffle ? state.playlist : state.initialPlaylist;
+      const playlist = state.isShuffle
+        ? [...state.initialPlaylist].sort(() => Math.random() - 0.5)
+        : state.initialPlaylist;
       const currenIndex = playlist.findIndex(
         (track) => track._id === state.currentTrack?._id
       );
       if (playlist.length - 1 === currenIndex) {
-        state.isPlaying = false;
+        state.isEndPlaying = true;
         return;
       }
       state.currentTrack = playlist[currenIndex + 1];
     },
     setPrevTrack: (state) => {
-      const playlist = state.isShuffle ? state.playlist : state.initialPlaylist;
+      const playlist = state.isShuffle
+        ? [...state.initialPlaylist].sort(() => Math.random() - 0.5)
+        : state.initialPlaylist;
       const currenIndex = playlist.findIndex(
         (track) => track._id === state.currentTrack?._id
       );
@@ -56,11 +62,20 @@ const playlistSlice = createSlice({
       state.isPlaying = action.payload;
     },
     setIsShuffle: (state, action: PayloadAction<boolean>) => {
-      state.playlist = state.playlist.sort(() => Math.random() - 0.5);
+      if (state.isShuffle === false) {
+        state.playlist = [...state.initialPlaylist].sort(
+          () => Math.random() - 0.5
+        );
+      } else {
+        state.playlist = state.initialPlaylist;
+      }
       state.isShuffle = action.payload;
     },
     setIsLooping: (state, action: PayloadAction<boolean>) => {
       state.isLooping = action.payload;
+    },
+    setIsEndPlaying: (state, action: PayloadAction<boolean>) => {
+      state.isEndPlaying = action.payload;
     },
   },
 });
@@ -72,5 +87,6 @@ export const {
   setIsPlaying,
   setIsShuffle,
   setIsLooping,
+  setIsEndPlaying,
 } = playlistSlice.actions;
 export const playlistReducer = playlistSlice.reducer;

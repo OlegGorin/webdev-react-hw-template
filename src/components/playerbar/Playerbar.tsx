@@ -13,6 +13,7 @@ import {
   setIsLooping,
   setNextTrack,
   setPrevTrack,
+  setIsEndPlaying,
 } from "@/store/features/trackSlice";
 
 export default function Playerbar() {
@@ -34,6 +35,7 @@ export default function Playerbar() {
     isPlaying,
     isShuffle,
     isLooping,
+    isEndPlaying,
   } = useAppSelector((state) => state.playlist);
   const dispatch = useAppDispatch();
 
@@ -47,21 +49,24 @@ export default function Playerbar() {
     if (audioRef.current) {
       audioRef.current.play();
       dispatch(setIsPlaying(true));
+      dispatch(setIsEndPlaying(false));
     }
   }, [track, dispatch]);
 
   useEffect(() => {
+    const handleEnded = () => {
+      dispatch(setNextTrack());
+    };
+
     const audio = audioRef.current;
+
     if (audio) {
-      audio.addEventListener("ended", () => {
-        dispatch(setNextTrack());
-      });
+      audio.addEventListener("ended", handleEnded);
     }
+
     return () => {
       if (audio) {
-        audio.removeEventListener("ended", () => {
-          dispatch(setNextTrack());
-        });
+        audio.removeEventListener("ended", handleEnded);
       }
     };
   }, [track, dispatch]);
@@ -100,11 +105,17 @@ export default function Playerbar() {
     }
   };
 
-  const handlePreviosPlay = () => {
+  const handlePrevTrack = () => {
+    if (isEndPlaying) {
+      dispatch(setIsEndPlaying(false));
+    }
     dispatch(setPrevTrack());
   };
 
-  const handleNextPlay = () => {
+  const handleNextTrack = () => {
+    if (isEndPlaying) {
+      dispatch(setIsEndPlaying(false));
+    }
     dispatch(setNextTrack());
   };
 
@@ -134,7 +145,7 @@ export default function Playerbar() {
                   setCurrentTime(e.currentTarget.currentTime)
                 }
               />
-              <div className={styles.playerBtnPrev} onClick={handlePreviosPlay}>
+              <div className={styles.playerBtnPrev} onClick={handlePrevTrack}>
                 <svg className={styles.playerBtnPrevSvg}>
                   <use
                     xlinkHref="/img/icon/sprite.svg#icon-prev"
@@ -159,7 +170,7 @@ export default function Playerbar() {
                   ></use>
                 </svg>
               </div>
-              <div className={styles.playerBtnNext} onClick={handleNextPlay}>
+              <div className={styles.playerBtnNext} onClick={handleNextTrack}>
                 <svg className={styles.playerBtnNextSvg}>
                   <use
                     xlinkHref="/img/icon/sprite.svg#icon-next"
@@ -253,9 +264,3 @@ export default function Playerbar() {
     </div>
   );
 }
-export type ProgressBarProps = {
-  max: number;
-  value: number;
-  step: number;
-  onChange: () => void;
-};

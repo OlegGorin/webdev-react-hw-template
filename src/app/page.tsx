@@ -1,5 +1,3 @@
-"use client";
-
 import styles from "./page.module.css";
 import CN from "classnames";
 import Navigation from "@/components/navigation/Navigation";
@@ -10,22 +8,19 @@ import { Playlist } from "@/components/centerblock/playlist/Playlist";
 import { getTracksAll } from "@/api/tracks";
 import { TrackType } from "@/Types/track";
 import { Filter } from "@/components/filter/Filter";
-import { useEffect, useState } from "react";
 
-export default function Home() {
-  const [track, setTrack] = useState<TrackType>();
-  const [tracks, setTracks] = useState<TrackType[]>([]);
-  const [errorMessage, setErrorMessage] = useState("");
+export default async function Home() {
 
-  useEffect(() => {
-    getTracksAll()
-      .then((response) => {
-        setTracks(response);
-      })
-      .catch((error) => {
-        setErrorMessage(error);
-      });
-  }, []);
+  let tracks: TrackType[] = [];
+  let errorMessage = "";
+
+  try {
+    tracks = await getTracksAll();
+  } catch (error: unknown) {
+    errorMessage = error instanceof Error
+    ? "Ошибка загрузки треков: " + error.message
+    : "Неизвестная ошибка";
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -38,12 +33,12 @@ export default function Home() {
             <div className={CN(styles.mainCenterblock, styles.centerblock)}>
               <Search />
               <Filter tracks={tracks} />
-              <Playlist tracks={tracks} setTrack={setTrack} />
+              <Playlist tracks={tracks} />
             </div>
             <Sidebar />
           </main>
         )}
-        {track && <Playerbar track={track} />}
+        <Playerbar />
         <footer className={styles.footer}></footer>
       </div>
     </div>

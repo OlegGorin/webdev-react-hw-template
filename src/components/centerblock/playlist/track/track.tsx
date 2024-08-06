@@ -1,23 +1,45 @@
+"use client";
+
 import styles from "./Track.module.css";
 import CN from "classnames";
 import { TrackType } from "@/Types/track";
 import { FormatTime } from "@/utils/FormatTime";
+import { useAppDispatch, useAppSelector } from "@/store/store";
+import { setCurrentTrack } from "@/store/features/trackSlice";
 
 type PlaylistProps = {
   track: TrackType;
-  onClick: () => void;
+  tracks: TrackType[];
 };
-export function Track({ track, onClick }: PlaylistProps) {
+
+export function Track({ track, tracks }: PlaylistProps) {
   const { name, author, album, duration_in_seconds, track_file } = track;
+  const dispatch = useAppDispatch();
+  const { currentTrack, isPlaying, isEndPlaying } = useAppSelector((state) => state.playlist);
+
+  const handleSelectTrack = () => {
+    dispatch(setCurrentTrack({ currentTrack: track, playlist: tracks }));
+  };
+
+  const conditionCurrentTrack = currentTrack?._id === track._id;
 
   return (
-    <div className={styles.playlistItem} onClick={onClick}>
+    <div className={styles.playlistItem} onClick={handleSelectTrack}>
       <div className={CN(styles.playlistTrack, styles.track)}>
         <div className={styles.trackTitle}>
           <div className={styles.trackTitleImage}>
             <svg className={styles.trackTitleSvg}>
               <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
             </svg>
+          </div>
+          <div className={styles.boxMark}>
+            {conditionCurrentTrack && (
+              <div
+                className={CN(styles.blinkedMark, {
+                  [styles.active]: (isPlaying && !isEndPlaying),
+                })}
+              ></div>
+            )}
           </div>
           <div className={styles.trackTitleText}>
             <span className={styles.trackTitleLink}>

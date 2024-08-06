@@ -6,9 +6,9 @@ import { FC } from "react";
 
 type PlaylistProps = {
   tracks: TrackType[];
-  setTrack: (track: TrackType) => void;
 };
-export const Playlist: FC<PlaylistProps> = ({ tracks, setTrack }) => {
+
+export const Playlist: FC<PlaylistProps> = ({ tracks }) => {
   return (
     <div className={CN(styles.centerblockContent, styles.playlistContent)}>
       <div className={CN(styles.contentTitle, styles.playlistTitle)}>
@@ -25,7 +25,7 @@ export const Playlist: FC<PlaylistProps> = ({ tracks, setTrack }) => {
       </div>
       <div className={CN(styles.contentPlaylist, styles.playlist)}>
         {tracks.map((track) => (
-          <Track track={track} key={track._id} onClick={() => setTrack(track)} />
+          <Track track={track} key={track._id} tracks={tracks} />
         ))}
       </div>
     </div>

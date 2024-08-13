@@ -6,6 +6,7 @@ import { TrackType } from "@/Types/track";
 import { FormatTime } from "@/utils/FormatTime";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { setCurrentTrack } from "@/store/features/trackSlice";
+import { useLikeTrack } from "@/hooks/useLikeTrack";
 
 type PlaylistProps = {
   track: TrackType;
@@ -13,9 +14,13 @@ type PlaylistProps = {
 };
 
 export function Track({ track, tracks }: PlaylistProps) {
-  const { name, author, album, duration_in_seconds, track_file } = track;
+  const { name, author, album, duration_in_seconds } = track;
   const dispatch = useAppDispatch();
-  const { currentTrack, isPlaying, isEndPlaying } = useAppSelector((state) => state.playlist);
+  const user = useAppSelector((state) => state.user.user);
+  const { currentTrack, isPlaying, isEndPlaying } = useAppSelector(
+    (state) => state.playlist
+  );
+  const { isLiked, handleLike } = useLikeTrack(track);
 
   const handleSelectTrack = () => {
     dispatch(setCurrentTrack({ currentTrack: track, playlist: tracks }));
@@ -36,7 +41,7 @@ export function Track({ track, tracks }: PlaylistProps) {
             {conditionCurrentTrack && (
               <div
                 className={CN(styles.blinkedMark, {
-                  [styles.active]: (isPlaying && !isEndPlaying),
+                  [styles.active]: isPlaying && !isEndPlaying,
                 })}
               ></div>
             )}
@@ -54,9 +59,15 @@ export function Track({ track, tracks }: PlaylistProps) {
           <span className={styles.trackAlbumLink}>{album}</span>
         </div>
         <div className={styles.trackTime}>
-          <svg className={styles.trackTimeSvg}>
-            <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
-          </svg>
+          <div onClick={handleLike}>
+            <svg className={styles.trackTimeSvg}>
+              <use
+                xlinkHref={`/img/icon/sprite.svg#icon-${
+                  user ? (isLiked ? "like" : "like_") : "like_"
+                }`}
+              ></use>
+            </svg>
+          </div>
           <span className={styles.trackTimeText}>
             {FormatTime(duration_in_seconds)}
           </span>
@@ -65,3 +76,5 @@ export function Track({ track, tracks }: PlaylistProps) {
     </div>
   );
 }
+// xlinkHref={`/img/icon/sprite.svg#icon-
+//   ${user ? isLiked ? "like" : "dislike" : "dislike_"}`}

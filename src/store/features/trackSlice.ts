@@ -1,5 +1,15 @@
+import { fetchFavoriteTracks } from "@/api/tracks";
 import { TrackType } from "@/Types/track";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+export const getFavoriteTracks = createAsyncThunk(
+  "tracks/getFavorite",
+  async (token: string) => {
+    const response = await fetchFavoriteTracks(token);
+
+    return response;
+  }
+);
 
 type PlaylistStateType = {
   currentTrack: TrackType | null;
@@ -9,6 +19,7 @@ type PlaylistStateType = {
   isShuffle: boolean;
   isLooping: boolean;
   isEndPlaying: boolean;
+  likedTracks: TrackType[];
 };
 
 const initialState: PlaylistStateType = {
@@ -19,12 +30,20 @@ const initialState: PlaylistStateType = {
   isShuffle: false,
   isLooping: false,
   isEndPlaying: false,
+  likedTracks: [],
 };
 
 const playlistSlice = createSlice({
   name: "playlist",
   initialState,
   reducers: {
+    setStartTrack: (state) => {
+      const playlist = state.isShuffle
+        ? [...state.initialPlaylist].sort(() => Math.random() - 0.5)
+        : state.initialPlaylist;
+      
+      state.currentTrack = playlist[0];
+    },
     setCurrentTrack: (
       state,
       action: PayloadAction<{ currentTrack: TrackType; playlist: TrackType[] }>
@@ -37,26 +56,26 @@ const playlistSlice = createSlice({
       const playlist = state.isShuffle
         ? [...state.initialPlaylist].sort(() => Math.random() - 0.5)
         : state.initialPlaylist;
-      const currenIndex = playlist.findIndex(
+      const currentIndex = playlist.findIndex(
         (track) => track._id === state.currentTrack?._id
       );
-      if (playlist.length - 1 === currenIndex) {
+      if (playlist.length - 1 === currentIndex) {
         state.isEndPlaying = true;
         return;
       }
-      state.currentTrack = playlist[currenIndex + 1];
+      state.currentTrack = playlist[currentIndex + 1];
     },
     setPrevTrack: (state) => {
       const playlist = state.isShuffle
         ? [...state.initialPlaylist].sort(() => Math.random() - 0.5)
         : state.initialPlaylist;
-      const currenIndex = playlist.findIndex(
+      const currentIndex = playlist.findIndex(
         (track) => track._id === state.currentTrack?._id
       );
-      if (!currenIndex) {
+      if (!currentIndex) {
         return;
       }
-      state.currentTrack = playlist[currenIndex - 1];
+      state.currentTrack = playlist[currentIndex - 1];
     },
     setIsPlaying: (state, action: PayloadAction<boolean>) => {
       state.isPlaying = action.payload;
@@ -77,6 +96,19 @@ const playlistSlice = createSlice({
     setIsEndPlaying: (state, action: PayloadAction<boolean>) => {
       state.isEndPlaying = action.payload;
     },
+    setLike: (state, action: PayloadAction<TrackType>) => {
+      state.likedTracks.push(action.payload);
+    },
+    setDislike: (state, action: PayloadAction<TrackType>) => {
+      state.likedTracks = state.likedTracks.filter(
+        (track) => track._id !== action.payload._id
+      );
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(getFavoriteTracks.fulfilled, (state, action) => {
+      state.likedTracks = action.payload;
+    });
   },
 });
 
@@ -88,5 +120,8 @@ export const {
   setIsShuffle,
   setIsLooping,
   setIsEndPlaying,
+  setLike,
+  setDislike,
+  setStartTrack,
 } = playlistSlice.actions;
 export const playlistReducer = playlistSlice.reducer;

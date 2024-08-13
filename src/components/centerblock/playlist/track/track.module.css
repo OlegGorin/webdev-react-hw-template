@@ -68,7 +68,8 @@
 }
 
 .trackAlbum {
-  width: 245px;
+  /* width: 245px; */
+  width: 220px;
 }
 
 .trackAlbumLink {
@@ -78,11 +79,16 @@
   line-height: 24px;
   color: #696969;
 }
-
+.trackTime {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  width: 60px;
+}
 .trackTimeSvg {
   width: 14px;
   height: 12px;
-  margin-right: 17px;
+  /* margin-right: 17px; */
   fill: transparent;
   stroke: #696969;
 }

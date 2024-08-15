@@ -76,5 +76,3 @@ export function Track({ track, tracks }: PlaylistProps) {
     </div>
   );
 }
-// xlinkHref={`/img/icon/sprite.svg#icon-
-//   ${user ? isLiked ? "like" : "dislike" : "dislike_"}`}

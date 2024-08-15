@@ -7,7 +7,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import styles from "./Signup.module.css";
 import CN from "classnames";
 import { useAppDispatch } from "@/store/store";
-import { getRegitration } from "@/store/features/userSlice";
+import { getRegistration } from "@/store/features/userSlice";
 
 export default function Signup() {
   const dispatch = useAppDispatch();
@@ -20,17 +20,16 @@ export default function Signup() {
   });
 
   const [error, setError] = useState<string>("");
-  // const [emailError, setEmailError] = useState(false);
-  // const [passError, setPassError] = useState(false);
-  // const [userNameError, setUserNameError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [passError, setPassError] = useState(false);
+  const [userNameError, setUserNameError] = useState(false);
 
   const onInputChange = async (event: ChangeEvent<HTMLInputElement>) => {
-  // const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormValues({ ...formValues, [name]: value });
-    // setEmailError(false);
-    // setPassError(false);
-    // setUserNameError(false);
+    setEmailError(false);
+    setPassError(false);
+    setUserNameError(false);
   };
 
   const onRegistration = async (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -38,28 +37,27 @@ export default function Signup() {
 
     if (!formValues.email || formValues.email.trim() === "") {
       setError("Не введена почта");
-      // setEmailError(true);
+      setEmailError(true);
       return;
     }
 
     if (!formValues.password || formValues.password.trim() === "") {
       setError("Не введен пароль");
-      // setPassError(true);
+      setPassError(true);
       return;
     }
 
     if (!formValues.username || formValues.username.trim() === "") {
       setError("Не введено имя пользователя");
-      // setUserNameError(true);
+      setUserNameError(true);
       return;
     }
 
     try {
-      await dispatch(getRegitration(formValues));
+      await dispatch(getRegistration(formValues));
       router.push("/signin");
     } catch (error: any) {
       setError(error.message);
-      console.log(error);
       alert(error);
     }
   };
@@ -109,7 +107,6 @@ export default function Signup() {
             />
             {error && <div className={styles.error}>{error}</div>}
             <button
-              // className={styles.modalBtnSignupEnt}
               type={"submit"}
               className={`${
                 !error ? styles.modalBtnSignupEnt : styles.modalBtnSignupEntErr

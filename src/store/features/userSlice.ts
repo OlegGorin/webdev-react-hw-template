@@ -12,7 +12,7 @@ export const getToken = createAsyncThunk(
   }
 );
 
-export const getRegitration = createAsyncThunk(
+export const getRegistration = createAsyncThunk(
   "user/getRegistration",
   async ({ email, password, username }: SignupType) => {
     const response = await fetchRegistration({ email, password, username });
@@ -44,8 +44,20 @@ const userSlice = createSlice({
       .addCase(getUser.fulfilled, (state, action) => {
         state.user = action.payload;
       })
+      .addCase(getUser.rejected, (state, action) => {
+        console.error("Error:", action.error.message);
+      })
+      .addCase(getRegistration.fulfilled, (state, action) => {
+        state.user = action.payload;
+      })
+      .addCase(getRegistration.rejected, (state, action) => {
+        console.error("Error:", action.error.message);
+      })
       .addCase(getToken.fulfilled, (state, action) => {
         state.tokens = action.payload;
+      })
+      .addCase(getToken.rejected, (state, action) => {
+        console.error("Error:", action.error.message);
       });
   },
 });

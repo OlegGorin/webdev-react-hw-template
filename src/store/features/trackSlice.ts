@@ -108,7 +108,10 @@ const playlistSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getFavoriteTracks.fulfilled, (state, action) => {
       state.likedTracks = action.payload;
-    });
+    })
+    .addCase(getFavoriteTracks.rejected, (state, action) => {
+      console.error('Error:', action.error.message); // Выводим сообщение об ошибке в консоль
+    })
   },
 });
 

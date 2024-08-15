@@ -15,10 +15,14 @@
     margin-right: 16px;
   }
   
-  .sidebarIcon {
+  .sidebarIcon,
+  .sidebarIconAuth {
     width: 43px;
     height: 43px;
     background-color: #313131;
     border-radius: 50%;
+  }
+  
+  .sidebarIconAuth {
     cursor: pointer;
   }

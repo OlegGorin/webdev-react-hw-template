@@ -1,9 +1,9 @@
 import Navigation from "@/components/navigation/Navigation";
-import Playerbar from "@/components/playerbar/Playerbar";
 import Sidebar from "@/components/sidebar/Sidebar";
 import styles from "./layout.module.css";
 import { Search } from "@/components/centerblock/search/Search";
 import CN from "classnames";
+import Playbar from "@/components/playbar/Playbar";
 
 export default function TrackLayout({
   children,
@@ -21,7 +21,7 @@ export default function TrackLayout({
           </div>
           <Sidebar />
         </main>
-        <Playerbar />
+        <Playbar />
         <footer className={styles.footer}></footer>
       </div>
     </div>

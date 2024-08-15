@@ -8,16 +8,15 @@ export const getTracksAll = async () => {
   const response = await fetch(pathTracks + "all/", {
     method: "GET",
   });
+  
   if (!response.ok) {
     throw new Error("Ошибка загрузки треков");
   }
-
   const data = await response.json();
   return data.data;
 };
 
 export const fetchFavoriteTracks = async (token: string) => {
-// export const getFavoriteTracks = async (token: string) => {
   const response = await fetch(pathToken, {
     method: "GET",
     headers: {
@@ -28,43 +27,36 @@ export const fetchFavoriteTracks = async (token: string) => {
   if (!response.ok) {
     throw new Error("Ошибка сервера");
   }
-
   const data = await response.json();
   return data.data;
 };
 
 export const addLikeTrack = async (token: string, id: number) => {
-  const response = await fetch(pathTracks + `${id}` + "/favorite/",
-    {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const response = await fetch(pathTracks + `${id}` + "/favorite/", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
   if (!response.ok) {
     throw new Error("Ошибка сервера");
   }
-
   const data = await response.json();
   return data.data;
 };
 
 export const removeLikeTrack = async (token: string, id: number) => {
-  const response = await fetch(pathTracks + `${id}` + "/favorite/",
-    {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const response = await fetch(pathTracks + `${id}` + "/favorite/", {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
   if (!response.ok) {
     throw new Error("Ошибка сервера");
   }
-
   const data = await response.json();
   return data.data;
 };

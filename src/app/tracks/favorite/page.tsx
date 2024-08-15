@@ -10,7 +10,7 @@ export default function FavoritePage() {
   return (
     <>
       <h2 className={styles.centerblockH2}>Мой плейлист</h2>
-      <Playlist tracks={favoriteTracks} />;
+      <Playlist tracks={favoriteTracks} />
     </>
   );
 }

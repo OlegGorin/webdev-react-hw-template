@@ -19,10 +19,13 @@ export const getUser = createAsyncThunk(
 
     if (!response.ok && response.status === 401) {
       throw new Error("Неверный логин или пароль");
+    }  else if (!response.ok && response.status === 400) {
+      throw new Error("Запрос составлен некорректно");
+    }  else if (!response.ok && response.status === 412) {
+      throw new Error("Данные в неверном формате");
     } else if (!response.ok && response.status === 500) {
       throw new Error("Ошибка соединения");
     }
-
     const data = await response.json();
     return data;
   }
@@ -44,25 +47,12 @@ export const fetchRegistration = async ({
       "content-type": "application/json",
     },
   });
-  if (!response.ok && response.status === 400) {
-    const errorResponse =  await response.json();
-    if (errorResponse.email) {
-      throw new Error(errorResponse.email);
-      
-    }
-    if (errorResponse.password) {
-      throw new Error(errorResponse.password);
-    }
-    if (errorResponse.username) {
-      throw new Error(errorResponse.username);
-    }
-    console.log("Ошибка: ", errorResponse.message);
-  } else if (!response.ok && response.status === 403) {
+
+  if (!response.ok && response.status === 403) {
     throw new Error("Введенный email уже занят");
   } else if (!response.ok && response.status === 500) {
     throw new Error("Ошибка соединения");
   }
-
   const data = await response.json();
   return data;
 };
@@ -78,19 +68,14 @@ export const fetchToken = async ({ email, password }: SigninType) => {
       "content-type": "application/json",
     },
   });
-  if (!response.ok && response.status === 400) {
-    const errorResponse =  await response.json();
-    if (errorResponse.email) {
-      throw new Error("Неверный логин");
-    }
-    if (errorResponse.password) {
-      throw new Error("Неверный пароль");
-    }
-    // throw new Error("Неверный логин или пароль");
+
+  if (!response.ok && response.status === 401) {
+    throw new Error("Неверный логин или пароль");
+  }  else if (!response.ok && response.status === 400) {
+    throw new Error("Запрос составлен некорректно");
   } else if (!response.ok && response.status === 500) {
     throw new Error("Ошибка соединения");
   }
-
   const data = await response.json();
   return data;
 };
@@ -103,12 +88,14 @@ export const refreshToken = async (refresh: string) => {
       "content-type": "application/json",
     },
   });
+
   if (!response.ok && response.status === 400) {
-    throw new Error("Неверный логин или пароль");
+    throw new Error("В теле запроса не передан refresh токен");
+  } else if (!response.ok && response.status === 401) {
+    throw new Error("Токен недействителен или просрочен");
   } else if (!response.ok && response.status === 500) {
     throw new Error("Ошибка соединения");
   }
-
   const data = await response.json();
   return data;
 };

@@ -17,30 +17,31 @@ export function SigninPage() {
   const [formValues, setFormValues] = useState({ email: "", password: "" });
 
   const [error, setError] = useState("");
-  // const [logError, setLogError] = useState(false);
-  // const [passError, setPassError] = useState(false);
+  const [logError, setLogError] = useState(false);
+  const [passError, setPassError] = useState(false);
 
   const onInputChange = async (event: ChangeEvent<HTMLInputElement>) => {
-    // const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormValues({ ...formValues, [name]: value });
-    // setLogError(false);
-    // setPassError(false);
+    setLogError(false);
+    setPassError(false);
   };
 
-  // const onLogin = async (event: any) => {
   const onLogin = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
     if (!formValues.email || formValues.email.trim() === "") {
       setError("Не введена почта");
-      // setLogError(true);
+      setLogError(true);
       return;
     }
 
     if (!formValues.password || formValues.password.trim() === "") {
       setError("Не введен пароль");
-      // setPassError(true);
+      setPassError(true);
+      return;
+    } else if (formValues.password.trim().length < 6) {
+      setError("Пароль не должен быть короче 6 символов");
       return;
     }
 
@@ -51,7 +52,7 @@ export function SigninPage() {
       router.push("/");
     } catch (error: any) {
       setError(error.message);
-      console.log(error);
+      console.error(error);
     }
   };
 

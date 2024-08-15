@@ -14,7 +14,7 @@ export default function Error({ error, reset }: ErrorType) {
 
   return (
     <div className={styles.container}>
-      <h3 className={styles.scaryText}>Что-то пошло не так!</h3>
+      <h3 className={styles.smileText}>Что-то пошло не так!</h3>
       <Image
         className={styles.sidebarImg}
         priority
@@ -26,10 +26,11 @@ export default function Error({ error, reset }: ErrorType) {
 
       <button
         className={CN(styles.errorButton, styles.btnText)}
-        onClick={reset}
+        onClick={() => reset}
       >
         Попробуйте снова
       </button>
     </div>
+    
   );
 }

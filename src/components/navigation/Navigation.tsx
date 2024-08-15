@@ -44,7 +44,7 @@ export default function Navigation() {
       {menuIsOpen && (
         <div className={CN(styles.navMenu, styles.menu)}>
           <ul className={styles.menuList}>
-            {isFavoriteUrl ? (
+            {(user && isFavoriteUrl) ? (
             <li className={styles.menuItem} onClick={handleFavOff}>
               <Link href="/tracks" className={styles.menuLink}>
                 Главное

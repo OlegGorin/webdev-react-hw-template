@@ -243,7 +243,6 @@ export default function Playerbar() {
                   <div onClick={handleLike}>
                     <svg className={styles.trackPlayLikeSvg}>
                       <use
-                        // xlinkHref="/img/icon/sprite.svg#icon-like"
                         xlinkHref={`/img/icon/sprite.svg#icon-${
                           user ? (isLiked ? "like" : "like_") : "like_"
                         }`}
@@ -253,15 +252,6 @@ export default function Playerbar() {
                     </svg>
                   </div>
                 </div>
-                {/* <div className={CN(styles.trackPlayDislike, styles._btnIcon)}> */}
-                {/* <svg className={styles.trackPlayDislikeSvg}> */}
-                {/* <use */}
-                {/* xlinkHref="img/icon/sprite.svg#icon-dislike" */}
-                {/* width={14.34} */}
-                {/* height={13} */}
-                {/* ></use> */}
-                {/* </svg> */}
-                {/* </div> */}
               </div>
             </div>
           </div>

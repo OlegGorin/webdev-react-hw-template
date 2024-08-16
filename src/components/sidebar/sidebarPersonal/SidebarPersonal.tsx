@@ -22,11 +22,13 @@ export const SidebarPersonal = () => {
     <div className={styles.sidebarPersonal}>
       <p className={styles.sidebarPersonalName}>{user?.username}</p>
       {user ? (
-        <div className={styles.sidebarIconAuth} onClick={onLogout}>
-          <svg>
-            <use xlinkHref="/img/icon/sprite.svg#logout"></use>
-          </svg>
-        </div>
+        <a title={"Выйти из аккаунта"} href="#">
+          <div className={styles.sidebarIconAuth} onClick={onLogout}>
+            <svg>
+              <use xlinkHref="/img/icon/sprite.svg#logout"></use>
+            </svg>
+          </div>
+        </a>
       ) : (
         <div className={styles.sidebarIcon}>
           <svg>

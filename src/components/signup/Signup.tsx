@@ -41,6 +41,12 @@ export default function Signup() {
       return;
     }
 
+    const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!re.test(String(formValues.email).toLowerCase())) {
+      setError("Некорректный email");
+      return;
+    }
+
     if (!formValues.password || formValues.password.trim() === "") {
       setError("Не введен пароль");
       setPassError(true);
@@ -54,11 +60,16 @@ export default function Signup() {
     }
 
     try {
-      await dispatch(getRegistration(formValues));
+      await dispatch(getRegistration(formValues)).unwrap();
       router.push("/signin");
+      setError("");
+      setEmailError(false);
+      setPassError(false);
+      setUserNameError(false);
     } catch (error: any) {
       setError(error.message);
-      alert(error);
+      console.error(error.message);
+      // router.push("/signup");
     }
   };
 
@@ -83,7 +94,7 @@ export default function Signup() {
             </a>
             <input
               className={CN(styles.modalInput, styles.login)}
-              type="text"
+              type="email"
               name="email"
               placeholder="Почта"
               value={formValues.email}
@@ -113,7 +124,9 @@ export default function Signup() {
               }`}
               onClick={onRegistration}
             >
-              <Link href={`${error ? "/signin" : "/signup"}`}>Зарегистрироваться</Link>
+              <Link href={`${error ? "/signin" : "/signup"}`}>
+                Зарегистрироваться
+              </Link>
             </button>
           </form>
         </div>

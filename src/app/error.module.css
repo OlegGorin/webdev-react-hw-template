@@ -1,34 +1,42 @@
 .container {
-  max-width: 520px;
-  height: 450px;
+  max-width: 472px;
+  height: 406px;
   margin: 300px auto;
+  border-radius: 12px;
   background-color: #ffffff;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   gap: 20px;
 }
-.smileText {
-  font-weight: bold;
+.letter{
+  width: 268px;
+  height: 96px;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: flex-end;
-  color: red;
-  font-size: 36px;
+}
+.error {
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 38px;
+  letter-spacing: -0.8%;
+  color: #000000;
 }
 .errorButton {
+  width: 178px;
+  height: 52px;
   font-weight: 500;
-  font-size: 30px;
-  border: 1px solid red;
-  border-radius: 15px;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: -0.3%;
+  border-radius: 6px;
   padding: 6px 10px;
-  background-color: rgb(65, 124, 63);
-  width: 300px;
-  height: 60px;
-  color: #000000;
-  flex-direction: row;
+  background-color: #580EA2;
+  color: #ffffff;
   align-items: center;
+  text-align: center;
 }
 .btnText:hover {
   border-color: #d9b6ff;
@@ -37,7 +45,7 @@
 }
 .sidebarImg {
   height: auto;
-  border-radius: 200px;
-  width: 250px;
-  background-color: black;
+  border-radius: 120px;
+  width: 120px;
+  background-color: #ffffff;
 }

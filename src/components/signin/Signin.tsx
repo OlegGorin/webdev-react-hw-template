@@ -6,9 +6,8 @@ import { useRouter } from "next/navigation";
 import { ChangeEvent, useEffect, useState } from "react";
 import styles from "./Signin.module.css";
 import CN from "classnames";
-import { getUser } from "@/api/userAuth";
 import { useAppDispatch } from "@/store/store";
-import { getToken } from "@/store/features/userSlice";
+import { getToken, getUser } from "@/store/features/userSlice";
 
 export function SigninPage() {
   const dispatch = useAppDispatch();
@@ -36,6 +35,12 @@ export function SigninPage() {
       return;
     }
 
+    const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!re.test(String(formValues.email).toLowerCase())) {
+      setError("Некорректный email");
+      return;
+    }
+
     if (!formValues.password || formValues.password.trim() === "") {
       setError("Не введен пароль");
       setPassError(true);
@@ -46,13 +51,17 @@ export function SigninPage() {
     }
 
     try {
-      await dispatch(getUser(formValues));
-      await dispatch(getToken(formValues));
+      await Promise.all([
+        dispatch(getUser(formValues)).unwrap(),
+        dispatch(getToken(formValues)).unwrap(),
+      ]);
       setError("");
+      setLogError(false);
+      setPassError(false);
       router.push("/");
     } catch (error: any) {
       setError(error.message);
-      console.error(error);
+      console.error(error.message);
     }
   };
 
@@ -77,9 +86,10 @@ export function SigninPage() {
             </Link>
             <input
               className={CN(styles.modalInput, styles.login)}
-              type="text"
+              type="email"
               name="email"
               placeholder="Почта"
+              pattern="^\S+@\S+\.\S+$"
               value={formValues.email}
               onChange={onInputChange}
             />

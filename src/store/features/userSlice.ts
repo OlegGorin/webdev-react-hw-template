@@ -1,4 +1,4 @@
-import { fetchRegistration, fetchToken, getUser } from "@/api/userAuth";
+import { fetchRegistration, fetchToken, fetchUser } from "@/api/userAuth";
 import { UserType } from "@/Types/user";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TokenType } from "@/Types/token";
@@ -7,16 +7,24 @@ import { SigninType, SignupType } from "@/Types/sign";
 export const getToken = createAsyncThunk(
   "user/getToken",
   async ({ email, password }: SigninType) => {
-    const response = await fetchToken({ email, password });
-    return response;
+    const tokens = await fetchToken({ email, password });
+    return tokens;
+  }
+);
+
+export const getUser = createAsyncThunk(
+  "user/getUser",
+  async ({ email, password }: SigninType) => {
+    const user = await fetchUser({ email, password });
+    return user;
   }
 );
 
 export const getRegistration = createAsyncThunk(
   "user/getRegistration",
   async ({ email, password, username }: SignupType) => {
-    const response = await fetchRegistration({ email, password, username });
-    return response;
+    const user = await fetchRegistration({ email, password, username });
+    return user;
   }
 );
 
@@ -46,6 +54,7 @@ const userSlice = createSlice({
       })
       .addCase(getUser.rejected, (state, action) => {
         console.error("Error:", action.error.message);
+        // alert("Error:", action.error.message);
       })
       .addCase(getRegistration.fulfilled, (state, action) => {
         state.user = action.payload;

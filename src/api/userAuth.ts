@@ -3,33 +3,33 @@ const pathToken = "https://webdev-music-003b5b991590.herokuapp.com/user/token/";
 const pathRegistration =
   "https://webdev-music-003b5b991590.herokuapp.com/user/signup/";
 
-import { createAsyncThunk } from "@reduxjs/toolkit";
+// import { createAsyncThunk } from "@reduxjs/toolkit";
 import { SigninType, SignupType } from "@/Types/sign";
 
-export const getUser = createAsyncThunk(
-  "user/getUser",
-  async ({ email, password }: SigninType) => {
-    const response = await fetch(pathLogin, {
-      method: "POST",
-      body: JSON.stringify({ email, password }),
-      headers: {
-        "content-type": "application/json",
-      },
-    });
+export const fetchUser = async ({ 
+  email,
+  password,
+}: SigninType) => {
+  const response = await fetch(pathLogin, {
+    method: "POST",
+    body: JSON.stringify({ email, password }),
+    headers: {
+      "content-type": "application/json",
+    },
+  });
 
-    if (!response.ok && response.status === 401) {
-      throw new Error("Неверный логин или пароль");
-    }  else if (!response.ok && response.status === 400) {
-      throw new Error("Запрос составлен некорректно");
-    }  else if (!response.ok && response.status === 412) {
-      throw new Error("Данные в неверном формате");
-    } else if (!response.ok && response.status === 500) {
-      throw new Error("Ошибка соединения");
-    }
-    const data = await response.json();
-    return data;
+  if (!response.ok && response.status === 401) {
+    throw new Error("Неверный логин или пароль");
+  } else if (!response.ok && response.status === 400) {
+    throw new Error("Запрос составлен некорректно");
+  } else if (!response.ok && response.status === 412) {
+    throw new Error("Данные в неверном формате");
+  } else if (!response.ok && response.status === 500) {
+    throw new Error("Ошибка соединения");
   }
-);
+  const data = await response.json();
+  return data;
+};
 
 export const fetchRegistration = async ({
   email,
@@ -71,7 +71,7 @@ export const fetchToken = async ({ email, password }: SigninType) => {
 
   if (!response.ok && response.status === 401) {
     throw new Error("Неверный логин или пароль");
-  }  else if (!response.ok && response.status === 400) {
+  } else if (!response.ok && response.status === 400) {
     throw new Error("Запрос составлен некорректно");
   } else if (!response.ok && response.status === 500) {
     throw new Error("Ошибка соединения");

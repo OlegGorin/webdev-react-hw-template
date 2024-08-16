@@ -14,14 +14,21 @@ export default function Error({ error, reset }: ErrorType) {
 
   return (
     <div className={styles.container}>
-      <h3 className={styles.smileText}>Что-то пошло не так!</h3>
+      <div className={styles.letter}>
+        <div className={styles.error}>
+          <p className={styles.smileText}>Ошибка загрузки!</p>
+        </div>
+        <div className={styles.action}>
+          <p>Проверьте подключение к сети и повторите попытку</p>
+        </div>
+      </div>
       <Image
         className={styles.sidebarImg}
         priority
-        src="/img/smile_error.png"
-        alt="scary face"
-        width={50}
-        height={50}
+        src="/img/smile_sad.png"
+        alt="smile sad"
+        width={120}
+        height={120}
       />
 
       <button
@@ -31,6 +38,5 @@ export default function Error({ error, reset }: ErrorType) {
         Попробуйте снова
       </button>
     </div>
-    
   );
 }

@@ -6,6 +6,7 @@ import {
   useSelector,
   useStore,
 } from "react-redux";
+import { userReducer } from "./features/userSlice";
 
 // Функция makeStore создает и возвращает хранилище Redux с помощью функции configureStore.
 export const makeStore = () => {
@@ -14,6 +15,7 @@ export const makeStore = () => {
     // объединяющий все редьюсеры нашего приложения.
     reducer: combineReducers({
       playlist: playlistReducer,
+      user: userReducer,
     }),
   });
 };

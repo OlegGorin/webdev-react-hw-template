@@ -15,7 +15,6 @@ export const Search = () => {
           name="search"
         />
       </div>
-      <h2 className={styles.centerblockH2}>Треки</h2>
     </>
   );
 };

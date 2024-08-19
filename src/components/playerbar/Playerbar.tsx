@@ -15,6 +15,7 @@ import {
   setPrevTrack,
   setIsEndPlaying,
 } from "@/store/features/trackSlice";
+import { useLikeTrack } from "@/hooks/useLikeTrack";
 
 export default function Playerbar() {
   // Использование useRef для получения доступа к элементу <audio>
@@ -38,6 +39,10 @@ export default function Playerbar() {
     isEndPlaying,
   } = useAppSelector((state) => state.playlist);
   const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.user.user);
+  const currentTrack = useAppSelector((state) => state.playlist.currentTrack);
+
+  const { isLiked, handleLike } = useLikeTrack(currentTrack!);
 
   useEffect(() => {
     if (audioRef.current) {
@@ -74,6 +79,7 @@ export default function Playerbar() {
   if (!track) {
     return <></>;
   }
+
   // Функция для воспроизведения и паузы
   const togglePlay = () => {
     if (audioRef.current) {
@@ -234,22 +240,17 @@ export default function Playerbar() {
 
               <div className={styles.trackPlayLikeDis}>
                 <div className={CN(styles.trackPlayLike, styles._btnIcon)}>
-                  <svg className={styles.trackPlayLikeSvg}>
-                    <use
-                      xlinkHref="/img/icon/sprite.svg#icon-like"
-                      width={14}
-                      height={12}
-                    ></use>
-                  </svg>
-                </div>
-                <div className={CN(styles.trackPlayDislike, styles._btnIcon)}>
-                  <svg className={styles.trackPlayDislikeSvg}>
-                    <use
-                      xlinkHref="img/icon/sprite.svg#icon-dislike"
-                      width={14.34}
-                      height={13}
-                    ></use>
-                  </svg>
+                  <div onClick={handleLike}>
+                    <svg className={styles.trackPlayLikeSvg}>
+                      <use
+                        xlinkHref={`/img/icon/sprite.svg#icon-${
+                          user ? (isLiked ? "like" : "like_") : "like_"
+                        }`}
+                        width={14}
+                        height={12}
+                      ></use>
+                    </svg>
+                  </div>
                 </div>
               </div>
             </div>

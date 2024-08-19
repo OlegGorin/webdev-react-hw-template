@@ -1,0 +1,51 @@
+.container {
+  max-width: 472px;
+  height: 406px;
+  margin: 300px auto;
+  border-radius: 12px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+.letter{
+  width: 268px;
+  height: 96px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-end;
+}
+.error {
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 38px;
+  letter-spacing: -0.8%;
+  color: #000000;
+}
+.errorButton {
+  width: 178px;
+  height: 52px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: -0.3%;
+  border-radius: 6px;
+  padding: 6px 10px;
+  background-color: #580EA2;
+  color: #ffffff;
+  align-items: center;
+  text-align: center;
+}
+.btnText:hover {
+  border-color: #d9b6ff;
+  color: #d9b6ff;
+  cursor: pointer;
+}
+.sidebarImg {
+  height: auto;
+  border-radius: 120px;
+  width: 120px;
+  background-color: #ffffff;
+}

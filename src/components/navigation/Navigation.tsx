@@ -2,12 +2,25 @@
 
 import Image from "next/image";
 import styles from "./Navigation.module.css";
+import Link from "next/link";
 import CN from "classnames";
 import { useState } from "react";
+import { useAppSelector } from "@/store/store";
 
 export default function Navigation() {
+  const { user } = useAppSelector((state) => state.user);
 
   const [menuIsOpen, setMenuIsOpen] = useState(false);
+
+  const [isFavoriteUrl, setIsFavoriteUrl] = useState(false);
+
+  const handleFavOn = () => {
+    setIsFavoriteUrl(true);
+  }
+
+  const handleFavOff = () => {
+    setIsFavoriteUrl(false);
+  }
 
   return (
     <nav className={CN(styles.mainNav, styles.nav)}>
@@ -31,20 +44,43 @@ export default function Navigation() {
       {menuIsOpen && (
         <div className={CN(styles.navMenu, styles.menu)}>
           <ul className={styles.menuList}>
-            <li className={styles.menuItem}>
-              <a href="#" className={styles.menuLink}>
+            {(user && isFavoriteUrl) ? (
+            <li className={styles.menuItem} onClick={handleFavOff}>
+              <Link href="/tracks" className={styles.menuLink}>
                 Главное
-              </a>
+              </Link>
             </li>
-            <li className={styles.menuItem}>
-              <a href="#" className={styles.menuLink}>
-                Мой плейлист
-              </a>
+            ) : (
+              <li className={styles.menuItem}>
+              <div className={styles.menuLinkGray}>
+                Главное
+              </div>
             </li>
+            )}
+            {(user && !isFavoriteUrl) ? (
+              <li className={styles.menuItem} onClick={handleFavOn}>
+                <Link href="/tracks/favorite" className={styles.menuLink}>
+                  Мой плейлист
+                </Link>
+              </li>
+            ) : (
+              <li className={styles.menuItem}>
+                <div className={styles.menuLinkGray}>
+                  Мой плейлист
+                </div>
+              </li>
+            )
+            }
             <li className={styles.menuItem}>
-              <a href="../signin.html" className={styles.menuLink}>
-                Войти
-              </a>
+              {!user ? (
+                <Link href="/signin" className={styles.menuLink}>
+                  Войти
+                </Link>
+              ) : (
+                <div className={styles.menuLinkGray}>
+                  Войти
+                </div>
+              )}
             </li>
           </ul>
         </div>

@@ -1,3 +1,6 @@
+const pathSelection =
+  "https://webdev-music-003b5b991590.herokuapp.com/catalog/selection/";
+
 const pathTracks =
   "https://webdev-music-003b5b991590.herokuapp.com/catalog/track/";
 
@@ -22,6 +25,17 @@ export const fetchFavoriteTracks = async (token: string) => {
     headers: {
       Authorization: `Bearer ${token}`,
     },
+  });
+
+  if (!response.ok) {
+    throw new Error("Ошибка сервера");
+  }
+  const data = await response.json();
+  return data.data;
+};
+
+export const fetchSelectionTracks = async (id: string) => {
+  const response = await fetch(pathSelection + `${id}`, {
   });
 
   if (!response.ok) {

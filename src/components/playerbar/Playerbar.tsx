@@ -7,6 +7,7 @@ import { ProgressBar } from "./progressbar/ProgressBar";
 import { Volume } from "./volume/volume";
 import { FormatTime } from "@/utils/FormatTime";
 import { useAppDispatch, useAppSelector } from "@/store/store";
+import { memo, useMemo } from "react";
 import {
   setIsPlaying,
   setIsShuffle,
@@ -43,6 +44,14 @@ export default function Playerbar() {
   const currentTrack = useAppSelector((state) => state.playlist.currentTrack);
 
   const { isLiked, handleLike } = useLikeTrack(currentTrack!);
+
+  const timePlaying = useMemo(() => {
+    return FormatTime(currentTime)
+  }, [currentTime]);
+
+  const timeDuration = useMemo(() => {
+    return FormatTime(duration)
+  }, [duration]);
 
   useEffect(() => {
     if (audioRef.current) {
@@ -133,7 +142,7 @@ export default function Playerbar() {
     <div className={styles.bar}>
       <div className={styles.barContent}>
         <div className={styles.timer}>
-          {FormatTime(currentTime)} / {FormatTime(duration)}
+          {timePlaying} / {timeDuration}          
         </div>
         <ProgressBar
           max={duration}

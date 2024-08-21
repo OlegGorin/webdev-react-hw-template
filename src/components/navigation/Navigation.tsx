@@ -44,19 +44,11 @@ export default function Navigation() {
       {menuIsOpen && (
         <div className={CN(styles.navMenu, styles.menu)}>
           <ul className={styles.menuList}>
-            {(user && isFavoriteUrl) ? (
             <li className={styles.menuItem} onClick={handleFavOff}>
               <Link href="/tracks" className={styles.menuLink}>
                 Главное
               </Link>
             </li>
-            ) : (
-              <li className={styles.menuItem}>
-              <div className={styles.menuLinkGray}>
-                Главное
-              </div>
-            </li>
-            )}
             {(user && !isFavoriteUrl) ? (
               <li className={styles.menuItem} onClick={handleFavOn}>
                 <Link href="/tracks/favorite" className={styles.menuLink}>

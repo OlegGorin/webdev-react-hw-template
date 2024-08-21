@@ -3,7 +3,6 @@ const pathToken = "https://webdev-music-003b5b991590.herokuapp.com/user/token/";
 const pathRegistration =
   "https://webdev-music-003b5b991590.herokuapp.com/user/signup/";
 
-// import { createAsyncThunk } from "@reduxjs/toolkit";
 import { SigninType, SignupType } from "@/Types/sign";
 
 export const fetchUser = async ({ 

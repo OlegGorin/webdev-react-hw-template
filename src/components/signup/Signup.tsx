@@ -69,7 +69,6 @@ export default function Signup() {
     } catch (error: any) {
       setError(error.message);
       console.error(error.message);
-      // router.push("/signup");
     }
   };
 

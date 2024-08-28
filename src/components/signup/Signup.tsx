@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import styles from "./Signup.module.css";
 import CN from "classnames";
 import { useAppDispatch } from "@/store/store";
@@ -30,7 +30,7 @@ export default function Signup() {
     setEmailError(false);
     setPassError(false);
     setUserNameError(false);
-  };
+  }
 
   const onRegistration = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -98,7 +98,7 @@ export default function Signup() {
               placeholder="Почта"
               value={formValues.email}
               onChange={onInputChange}
-            />
+            ></input>
             <input
               className={CN(styles.modalInput, styles.passwordFirst)}
               type="password"
@@ -106,7 +106,7 @@ export default function Signup() {
               placeholder="Пароль"
               value={formValues.password}
               onChange={onInputChange}
-            />
+            ></input>
             <input
               className={CN(styles.modalInput, styles.passwordDouble)}
               type="text"
@@ -114,10 +114,11 @@ export default function Signup() {
               placeholder="Имя пользователя"
               value={formValues.username}
               onChange={onInputChange}
-            />
+            ></input>
             {error && <div className={styles.error}>{error}</div>}
             <button
               type={"submit"}
+              id={"ok-button"}
               className={`${
                 !error ? styles.modalBtnSignupEnt : styles.modalBtnSignupEntErr
               }`}

@@ -25,7 +25,7 @@ export default function Sidebar() {
               <Image
                 className={styles.sidebarImg}
                 src="/img/playlist02.png"
-                alt="day's playlist"
+                alt="100 dance hits"
                 width={250}
                 height={150}
               />
@@ -36,7 +36,7 @@ export default function Sidebar() {
               <Image
                 className={styles.sidebarImg}
                 src="/img/playlist03.png"
-                alt="day's playlist"
+                alt="indi-charge"
                 width={250}
                 height={150}
               />

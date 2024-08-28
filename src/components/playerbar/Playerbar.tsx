@@ -2,12 +2,11 @@
 
 import styles from "./Playerbar.module.css";
 import CN from "classnames";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import { ProgressBar } from "./progressbar/ProgressBar";
 import { Volume } from "./volume/volume";
 import { FormatTime } from "@/utils/FormatTime";
 import { useAppDispatch, useAppSelector } from "@/store/store";
-import { memo, useMemo } from "react";
 import {
   setIsPlaying,
   setIsShuffle,

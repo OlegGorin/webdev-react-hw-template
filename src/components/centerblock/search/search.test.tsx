@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { Filter } from "./Filter";
+import { Search } from "./Search";
 import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
 import { initialState } from "@/store/features/trackSlice";
@@ -7,13 +7,13 @@ import { initialState } from "@/store/features/trackSlice";
 describe("filter", () => {
   const mockStore = configureStore([]);
   let store = mockStore({ playlist: initialState });
-  it("render titleFilter", () => {
+  it("render titleFilter", async () => {
     const component = render(
       <Provider store={store}>
-        <Filter  tracks={[]}/>
+        <Search/>
       </Provider>
     );
-    const text = screen.getAllByText("Искать по:");
-    expect(text.length).toBeGreaterThan(0);
+    const text = await screen.findByPlaceholderText("Поиск");
+    expect(text).toMatch;
   });
 });

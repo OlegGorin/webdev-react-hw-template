@@ -2,7 +2,6 @@ import { addLikeTrack, removeLikeTrack } from "@/api/tracks";
 import {
   setDislike,
   setLike,
-  setStartTrack,
 } from "@/store/features/trackSlice";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { TrackType } from "@/Types/track";

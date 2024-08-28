@@ -4,7 +4,7 @@ import Image from "next/image";
 import styles from "./Navigation.module.css";
 import Link from "next/link";
 import CN from "classnames";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useAppSelector } from "@/store/store";
 
 export default function Navigation() {
@@ -14,13 +14,13 @@ export default function Navigation() {
 
   const [isFavoriteUrl, setIsFavoriteUrl] = useState(false);
 
-  const handleFavOn = () => {
+  const handleFavOn = useCallback(() => {
     setIsFavoriteUrl(true);
-  }
+  }, [])
 
-  const handleFavOff = () => {
+  const handleFavOff = useCallback(() => {
     setIsFavoriteUrl(false);
-  }
+  }, [])
 
   return (
     <nav className={CN(styles.mainNav, styles.nav)}>
@@ -69,9 +69,9 @@ export default function Navigation() {
                   Войти
                 </Link>
               ) : (
-                <div className={styles.menuLinkGray}>
-                  Войти
-                </div>
+                <Link href="/signin" className={styles.menuLink}>
+                  Выйти
+                </Link>
               )}
             </li>
           </ul>

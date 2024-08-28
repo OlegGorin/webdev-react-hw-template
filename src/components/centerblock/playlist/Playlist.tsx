@@ -1,14 +1,27 @@
+"use client";
+
 import styles from "./Playlist.module.css";
 import CN from "classnames";
 import { Track } from "./track/track";
 import { TrackType } from "@/Types/track";
-import { FC } from "react";
+import { FC, useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "@/store/store";
+import { setInitialTracks } from "@/store/features/trackSlice";
 
 type PlaylistProps = {
   tracks: TrackType[];
 };
 
 export const Playlist: FC<PlaylistProps> = ({ tracks }) => {
+  const dispatch = useAppDispatch();
+  const filteredTracks = useAppSelector(
+    (state) => state.playlist.filteredTracks
+  );
+
+  useEffect(() => {
+    dispatch(setInitialTracks({ initialTracks: tracks }));
+  }, [dispatch, tracks]);
+
   return (
     <div className={CN(styles.centerblockContent, styles.playlistContent)}>
       <div className={CN(styles.contentTitle, styles.playlistTitle)}>
@@ -24,7 +37,12 @@ export const Playlist: FC<PlaylistProps> = ({ tracks }) => {
         </div>
       </div>
       <div className={CN(styles.contentPlaylist, styles.playlist)}>
-        {tracks.map((track) => (
+        {filteredTracks.length === 0 ? (
+          <p className={styles.notFoundTracks}>Треки не найдены</p>
+        ) : (
+          ""
+        )}
+        {filteredTracks.map((track) => (
           <Track track={track} key={track._id} tracks={tracks} />
         ))}
       </div>

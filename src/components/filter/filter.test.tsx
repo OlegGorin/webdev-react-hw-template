@@ -4,7 +4,7 @@ import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
 import { initialState } from "@/store/features/trackSlice";
 
-describe("filter", () => {
+describe("filter component", () => {
   const mockStore = configureStore([]);
   let store = mockStore({ playlist: initialState });
   it("render titleFilter", () => {

@@ -14,10 +14,10 @@ jest.mock("next/navigation", () => ({
 
 afterEach(cleanup);
 
-describe("filter", () => {
+describe("test Signup component", () => {
   const mockStore = configureStore([]);
   let store = mockStore({ user: initialState });
-  it("render placeholders in Signup", () => {
+  it("render Signup", () => {
     const component = render(
       <Provider store={store}>
         <SignupPage />
@@ -26,7 +26,7 @@ describe("filter", () => {
     const items = screen.getAllByRole("textbox");
     expect(items).toHaveLength(2);
   });
-  it("render placeholders in Signup", async () => {
+  it("render Signup", async () => {
     const component = render(
       <Provider store={store}>
         <SignupPage />

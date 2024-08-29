@@ -14,10 +14,10 @@ jest.mock("next/navigation", () => ({
 
 afterEach(cleanup);
 
-describe("filter", () => {
+describe("test Signin component", () => {
   const mockStore = configureStore([]);
   let store = mockStore({ user: initialState });
-  it("render placeholders in Signin", () => {
+  it("render Signin", () => {
     const component = render(
       <Provider store={store}>
         <SigninPage />
@@ -26,7 +26,7 @@ describe("filter", () => {
     expect(screen.getByText(/Войти/)).toBeInTheDocument;
     expect(screen.getByText(/Зарегистрироваться/)).toBeInTheDocument;
   });
-  it("render placeholders in Signin", async () => {
+  it("render Signin", async () => {
     const component = render(
       <Provider store={store}>
         <SigninPage />

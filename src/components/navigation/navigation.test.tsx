@@ -9,7 +9,7 @@ import { initialState } from "@/store/features/userSlice";
 describe("Navigation component", () => {
   const mockStore = configureStore([]);
   let store = mockStore({ user: initialState });
-  it("render menu items of Navigation", () => {
+  it("render Navigation", () => {
     const component = render(
       <Provider store={store}>
         <Navigation />

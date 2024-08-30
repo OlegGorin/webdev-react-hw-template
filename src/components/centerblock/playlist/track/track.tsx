@@ -7,6 +7,7 @@ import { FormatTime } from "@/utils/FormatTime";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { setCurrentTrack } from "@/store/features/trackSlice";
 import { useLikeTrack } from "@/hooks/useLikeTrack";
+import { useCallback } from "react";
 
 type PlaylistProps = {
   track: TrackType;
@@ -22,9 +23,9 @@ export function Track({ track, tracks }: PlaylistProps) {
   );
   const { isLiked, handleLike } = useLikeTrack(track);
 
-  const handleSelectTrack = () => {
+  const handleSelectTrack = useCallback(() => {
     dispatch(setCurrentTrack({ currentTrack: track, playlist: tracks }));
-  };
+  }, [dispatch, tracks, track]);
 
   const conditionCurrentTrack = currentTrack?._id === track._id;
 

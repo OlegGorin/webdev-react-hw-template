@@ -2,42 +2,27 @@
 
 import styles from "./Filter.module.css";
 import { TrackType } from "@/Types/track";
-import { FC, useState } from "react";
+import { FC, useCallback, useState } from "react";
 import { FilterItem } from "./filterItem/FilterItem";
-import { getUniqueValues } from "@/utils/getUniqueValues";
+import { filterParts } from "./filters";
+import { useAppSelector } from "@/store/store";
 
 type FilterProps = {
   tracks: TrackType[];
 };
 
-const SORT_ORDER = ["По умолчанию", "Сначала новые", "Сначала старые"];
-
 export const Filter: FC<FilterProps> = ({ tracks }) => {
+  const { author, genre, order } = useAppSelector(
+    (store) => store.playlist.filterProps
+  );
+
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
 
-  const handleFilter = (filterName: string) => {
+  const handleFilter = useCallback((filterName: string) => {
     setActiveFilter((prevState) =>
       prevState === filterName ? null : filterName
     );
-  };
-
-  const getFilterAuthor = getUniqueValues(tracks, "author");
-  const getFilterGenre = getUniqueValues(tracks, "genre");
-
-  const filterParts = [
-    {
-      title: "исполнителю",
-      list: getFilterAuthor,
-    },
-    {
-      title: "году выпуска",
-      list: SORT_ORDER,
-    },
-    {
-      title: "жанру",
-      list: getFilterGenre,
-    },
-  ];
+  }, []);
 
   return (
     <div className={styles.centerblockFilter}>
@@ -49,7 +34,14 @@ export const Filter: FC<FilterProps> = ({ tracks }) => {
             title={filterPart.title}
             isActive={activeFilter === filterPart.title}
             handleFilter={handleFilter}
-            list={filterPart.list}
+            value={filterPart.value}
+            filterKey={
+              filterPart.value === "author"
+                ? author
+                : filterPart.value === "genre"
+                ? genre
+                : order
+            }
           />
         ))}
       </div>

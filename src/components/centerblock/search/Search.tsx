@@ -1,7 +1,20 @@
+"use client";
+
+import { ChangeEvent, useCallback, useState } from "react";
 import styles from "./Search.module.css";
 import CN from "classnames";
+import { useAppDispatch } from "@/store/store";
+import { setFilters } from "@/store/features/trackSlice";
 
 export const Search = () => {
+  const [searchString, setSearchString] = useState("");
+  const dispatch = useAppDispatch();
+
+  const handleSearch = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+    setSearchString(event.target.value)
+    dispatch(setFilters({ searchString: event.target.value}))
+  }, [dispatch]);
+
   return (
     <>
       <div className={CN(styles.centerblockSearch, styles.search)}>
@@ -13,6 +26,8 @@ export const Search = () => {
           type="search"
           placeholder="Поиск"
           name="search"
+          value={searchString}
+          onChange={handleSearch}
         />
       </div>
     </>

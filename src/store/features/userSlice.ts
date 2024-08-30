@@ -33,7 +33,7 @@ type UserStateType = {
   tokens: TokenType | null;
 };
 
-const initialState: UserStateType = {
+export const initialState: UserStateType = {
   user: null,
   tokens: null,
 };
@@ -54,7 +54,6 @@ const userSlice = createSlice({
       })
       .addCase(getUser.rejected, (state, action) => {
         console.error("Error:", action.error.message);
-        // alert("Error:", action.error.message);
       })
       .addCase(getRegistration.fulfilled, (state, action) => {
         state.user = action.payload;

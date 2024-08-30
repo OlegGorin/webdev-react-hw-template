@@ -1,9 +1,13 @@
+.wrapper {
+  position: relative;
+  left: 15px;
+}
+
 .container {
   position: absolute;
 }
 
 .filterBox {
-  position: relative;
   background: #313131;
   margin-top: 15px;
   width: 248px;
@@ -13,6 +17,9 @@
 }
 
 .innerBox {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
   width: 180px;
   max-height: 237px;
   background: #313131;
@@ -26,12 +33,13 @@
 .itemListActive {
   font-style: normal;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 20px;
   line-height: 48px;
+  line-height: 24px;
 }
 
 .itemList:hover {
-  color: #ad61ff;
+  color: #d9b6ff;
   text-decoration: underline;
 }
 
@@ -60,4 +68,20 @@
   border-color: #d9b6ff;
   color: #d9b6ff;
   cursor: pointer;
+}
+
+.filterCounter {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background-color: #AD61FF;
+  color: #ffffff;
+  text-align: center;
+  position: absolute;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 13px;
+  right: 0;
+  top: -8px;
+  padding-top: 7px;
 }

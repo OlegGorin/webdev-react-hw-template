@@ -155,7 +155,6 @@ const playlistSlice = createSlice({
           track.author
             .toLowerCase()
             .includes(state.filterProps?.searchString.toLowerCase());
-        console.log("valueSearcSting: ", valueSearchString);
 
         return filterAuthor && filterGenre && valueSearchString;
       });

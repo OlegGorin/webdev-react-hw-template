@@ -26,9 +26,7 @@ export default function SelectionPage() {
 
         setSelectionName(tracks.name);
         setSelectionTracks(resultTracks);
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     };
 
     getSelectionTracks();
@@ -39,5 +37,5 @@ export default function SelectionPage() {
       <Filter tracks={selectionTracks} />
       <Playlist tracks={selectionTracks} />
     </>
-  )
+  );
 }

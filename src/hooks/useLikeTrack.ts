@@ -1,8 +1,5 @@
 import { addLikeTrack, removeLikeTrack } from "@/api/tracks";
-import {
-  setDislike,
-  setLike,
-} from "@/store/features/trackSlice";
+import { setDislike, setLike } from "@/store/features/trackSlice";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { TrackType } from "@/Types/track";
 
@@ -28,9 +25,7 @@ export const useLikeTrack = (track: TrackType) => {
     try {
       await fetchAction(tokens.access, track._id);
       dispatch(storeAction(track));
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   return {

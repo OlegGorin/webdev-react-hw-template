@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import styles from "../../page.module.css";
 import { Filter } from "@/components/filter/Filter";
 import { Playlist } from "@/components/centerblock/playlist/Playlist";
-import { title } from "process";
 
 export default function SelectionPage() {
   const { id } = useParams<{ id: string }>();
@@ -27,9 +26,7 @@ export default function SelectionPage() {
 
         setSelectionName(tracks.name);
         setSelectionTracks(resultTracks);
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     };
 
     getSelectionTracks();
@@ -40,5 +37,5 @@ export default function SelectionPage() {
       <Filter tracks={selectionTracks} />
       <Playlist tracks={selectionTracks} />
     </>
-  )
+  );
 }

@@ -5,6 +5,8 @@ import styles from "./SidebarPersonal.module.css";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { logout } from "@/store/features/userSlice";
 import { useRouter } from "next/navigation";
+import { useCallback } from "react";
+import Link from "next/link";
 
 export const SidebarPersonal = () => {
   useInitLikedTracks();
@@ -13,22 +15,22 @@ export const SidebarPersonal = () => {
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.user);
 
-  const onLogout = () => {
+  const onLogout = useCallback(() => {
     dispatch(logout());
     router.push("/");
-  };
+  }, [dispatch, router]);
 
   return (
     <div className={styles.sidebarPersonal}>
       <p className={styles.sidebarPersonalName}>{user?.username}</p>
       {user ? (
-        <a title={"Выйти из аккаунта"} href="#">
+        <Link title={"Выйти из аккаунта"} href="/signin">
           <div className={styles.sidebarIconAuth} onClick={onLogout}>
             <svg>
               <use xlinkHref="/img/icon/sprite.svg#logout"></use>
             </svg>
           </div>
-        </a>
+        </Link>
       ) : (
         <div className={styles.sidebarIcon}>
           <svg>

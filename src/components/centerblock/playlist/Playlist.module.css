@@ -1,7 +1,6 @@
 .centerblockContent {
   width: 100%;
   height: 650px;
-  /* height: 30%; */
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -57,4 +56,9 @@
 
 .col04t {
   width: 60px;
+}
+
+.notFoundTracks{
+  font-size: 28px;
+  font-weight: 400;
 }
